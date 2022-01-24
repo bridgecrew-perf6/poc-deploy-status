@@ -1,0 +1,32 @@
+name: Delivery pipeline
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - id: set_state_in_progress
+        name: Set deployment status to [in_progress]
+        uses: rsotnychenko/deployment-status-update@0.2.0
+        with:
+          run_id: ${{ github.run_id }}
+          status: in_progress
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: test
+        run: |
+          echo "testing"
+          sleep 5
+          
+      - id: set_state_final
+        if: always()
+        name: Set deployment status
+        uses: rsotnychenko/deployment-status-update@0.2.0
+        with:
+          status: ${{ job.status }}
+          run_id: ${{ github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
