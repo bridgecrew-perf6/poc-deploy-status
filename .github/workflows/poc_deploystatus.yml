@@ -14,6 +14,7 @@ jobs:
         with:
           run_id: ${{ github.run_id }}
           status: in_progress
+          deployment_status_url: https://api.github.com/repos/${{ github.repository }}/deployments/${{ github.run_id }}/statuses
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: test
@@ -28,5 +29,6 @@ jobs:
         with:
           status: ${{ job.status }}
           run_id: ${{ github.run_id }}
+          deployment_status_url: https://api.github.com/repos/${{ github.repository }}/deployments/${{ github.run_id }}/statuses
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
