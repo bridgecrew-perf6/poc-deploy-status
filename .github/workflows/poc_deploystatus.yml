@@ -14,13 +14,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
+      - name: echo deployment creation
+        run: |
+          echo "ID" ${{ steps.deployment.outputs.deployment_id }}
+          echo "deploy URL" ${{ steps.deployment.outputs.deployment_url }}
+          echo "status URL" ${{ steps.deployment.outputs.statuses_url }}
+          
       - id: set_state_in_progress
         name: Set deployment status to [in_progress]
         uses: rsotnychenko/deployment-status-update@0.2.0
         with:
           run_id: ${{ github.run_id }}
           status: in_progress
-          deployment_status_url: ${{ steps.deployment.output.deployment_url }}
+          deployment_status_url: ${{ steps.deployment.outputs.deployment_url }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
@@ -36,6 +42,6 @@ jobs:
         with:
           status: ${{ job.status }}
           run_id: ${{ github.run_id }}
-          deployment_status_url: ${{ steps.deployment.output.deployment_url }}
+          deployment_status_url: ${{ steps.deployment.outputs.deployment_url }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
