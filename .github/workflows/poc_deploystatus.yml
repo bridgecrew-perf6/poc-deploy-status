@@ -33,8 +33,16 @@ jobs:
       - name: test
         run: |
           echo "testing"
-          sleep 15
+          sleep 30
           
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump job context
+        run: echo '${{ toJSON(job) }}'
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+        
       - id: set_state_final
         if: always()
         name: Set deployment status
