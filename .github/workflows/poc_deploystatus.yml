@@ -10,6 +10,7 @@ jobs:
       - uses: avakar/create-deployment@v1
         id: deployment
         with:
+          environment: staging
           auto_merge: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
