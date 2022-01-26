@@ -33,7 +33,7 @@ jobs:
       - name: test
         run: |
           echo "testing"
-          sleep 30
+          sleep 60
           
       - name: Dump GitHub context
         id: github_context_step
@@ -50,6 +50,7 @@ jobs:
         with:
           status: ${{ job.status }}
           run_id: ${{ github.run_id }}
+          description: ${{ github.workflow }} ${{ github.log_url }} 
           deployment_status_url: ${{ steps.deployment.outputs.statuses_url }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
