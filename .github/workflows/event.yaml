@@ -1,0 +1,19 @@
+name: Events
+
+on:
+  push:
+    branches: ${{ github.event.repository.default_branch }}
+    
+jobs:
+  Validate-tag:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Get project
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Versioning
+        id: app_version
+        run: ./.github/scripts/version_validation.sh
