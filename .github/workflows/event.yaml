@@ -2,7 +2,7 @@ name: Events
 
 on:
   push:
-    branches: main
+    branches: github.event.repository.default_branch
     
 jobs:
   Validate-tag:
