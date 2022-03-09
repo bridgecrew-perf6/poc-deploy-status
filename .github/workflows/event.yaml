@@ -2,7 +2,7 @@ name: Events
 
 on:
   push:
-    branches: "${{ github.event.repository.default_branch }}"
+    branches: main
     
 jobs:
   Validate-tag:
@@ -16,4 +16,6 @@ jobs:
 
       - name: Versioning
         id: app_version
-        run: ./.github/scripts/version_validation.sh
+        run: |
+          chmod +x ./.github/scripts/version_validation.sh
+          ./.github/scripts/version_validation.sh
